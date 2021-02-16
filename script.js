@@ -1,75 +1,50 @@
-//Variables utiles 
-//Precio base de la cotización, en quetzales, lo puede cambiar
-var precio_base = 2000
+var precio_base = 2000; // representa salario base 
+var recargo_edad = 0 // guardad cargo por edad 
+var recargo_conyuge = 0 //guardar cargo cargo por conyuge
+var recargo_hijos = 0 //
+var total = 0
 
-//Valores de los recargos 
-var edad_18 = 0.1 // 10%
-var edad_25 = 0.2 // 20%
-var edad_50 = 0.3 // 30%
+//variable para saber si sale del ciclo
+var salir = "";
+while (salir.toLowerCase() != "salir") {
+    var edad = prompt("ingrese su edad"); //(se utiliza el prompt para que el usuario pueda ingresar la edad)  variable que  almacena la edad 
 
-var casado_18 = 0.1 // 10%
-var casado_25 = 0.2 // 20%
-var casado_50 = 0.3 // 30%
+    if (edad >= 18 && edad <= 24) {
+        recargo_edad = precio_base * 0.1; // coloco la variable precio base y le sumo el valor actul + la variable por el 0.1
+    }
+    else if (edad >= 25 && edad <= 49) {
+        recargo_edad = precio_base * 0.2;
+    }
+    else if (edad >= 50) {
+        recargo_edad = precio_base * 0.3;
+    }
 
-var hijos_recargo = 0.2 // 20%
+    var conyuge = prompt("tiene conyuge ")
+    if (conyuge.toLowerCase() == "si") {//  se ejecuta la variable tolowercas paso todo a miniscula 
+        var edad_esposa = prompt("ingrese la edad de su esposa") // se le indica con un prompt que ingrese la cantidad de la conyuge
 
+        if (edad_esposa >= 18 && edad_esposa <= 24) {
+            recargo_edad = recargo_edad + precio_base * 0.1; // coloco la variable precio base y le sumo el valor actul + la variable por el 0.1
+        }
+        else if (edad_esposa >= 25 && edad_esposa <= 49) {
+            recargo_edad = recargo_edad + precio_base * 0.2;
+        }
+        else {
+            recargo_edad = recargo_edad + precio_base * 0.3;
+        }
+        recargo_conyuge = precio_base * 0.2;
+    }
 
-//Recargo
-var recargo = 0
-var recargo_total = 0
+    var cantidad_hijos = prompt("cuantos hijos tiene")
 
-//Precio final 
-var precio_final = 0
+    recargo_hijos = (precio_base * 0.2) * parseInt(cantidad_hijos)
 
-//Mensajes de alerta para ingresar datos 
-var nombre = prompt("Ingrese su nombre, por favor")
-var edad = prompt("¿Cuantos años tiene? Ingrese solamente números ")
+    total = precio_base + recargo_edad + recargo_conyuge + recargo_hijos;
 
-var casado = prompt("¿Está casado actualmente?")
-//Comprobamos la edad del cónyuge, solamente si se está casado/a
-var edad_conyuge
-if("SI" == casado.toUpperCase()){
-  edad_conyuge = prompt("¿Que edad tiene su esposo/a?", "si/no")
+    console.log(total)
+    console.log("Recargo Edad", recargo_edad);
+    console.log("Recargo Conyuge", recargo_conyuge);
+    console.log("Recargo Hijos", recargo_hijos);
+
+    salir = prompt("Dijite salir si desea salir del programa");
 }
-//convirtiendo las edades ingresadas a números 
-var edad_numero = parseInt(edad)
-var edad_conyuge_numero = 0
-//convirtiendo la edad del cónyuge si se esta casado/a
-if("SI" == casado.toUpperCase()){
-  edad_conyuge_numero = parseInt(edad_conyuge)
-}
-
-var hijos = prompt("¿Tiene hijos o hijas?")
-//Comprobamos la cantidad de hijos solamente si los tienen
-var cantidad_hijos
-/**
- * 1. convierta la cantidad de hijos a numero
- */
-
-//Aquí debe calcular el recargo total basado en las respuestas ingresadas
-
-//Aquí es donde debe de calcular los recargos y el valor final
-//Ejemplo (Debe completar los condicionales): Recargo por edad del asegurado 
-if(edad_numero>=18 && edad_numero<25){
-  //Calculamos el recargo en base a la edad 
-  recargo = precio_base * edad_18
-  //Sumamos todos los recargos que hemos obtenido
-  recargo_total = recargo_total + recargo
-}
-//aqui puede colocar un else if() con el siguiente rango
-
-/** 
- * 2. Recargo por la edad del conyuge
- */
-
-/**
- * 3. Recargo por la cantidad de hijos 
- */ 
-
-
-precio_final = precio_base + recargo_total
-//Resultado
-alert ("Para el asegurado "+nombre)
-alert ("El recargo total sera de: "+recargo_total)
-alert ("El precio sera de: "+precio_final)
-
